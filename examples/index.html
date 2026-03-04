@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmUI Examples</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/dashboard-shell.css" />
+  <link rel="stylesheet" href="../css/theme-light.css" />
+</head>
+
+<body>
+  <div class="dash" data-right-rail="off" aria-label="Examples index shell">
+    <input class="dash__toggle dash__toggleLeft" id="idx-toggle-left" type="checkbox" />
+
+    <header class="dash__topbar ui-topbar" data-slot="top-nav">
+      <div class="ui-topbar__left">
+        <label class="dash__menuBtn ui-btn ui-btn--ghost" for="idx-toggle-left" role="button" tabindex="0">Menu</label>
+        <a class="ui-topbar__brand" href="index.html">OmUI Examples</a>
+      </div>
+    </header>
+
+    <label class="dash__backdrop dash__backdrop--left" for="idx-toggle-left" aria-hidden="true"></label>
+
+    <aside class="dash__left" data-slot="left-nav" aria-label="Example navigation">
+      <nav class="ui-sidenav">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Dashboard</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html">KPI Overview</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html">Data Tables</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html">Reports</a>
+          <a class="ui-sidenav__item" href="DashboardShell.example.html">Layout Shell</a>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Component</h2>
+          <a class="ui-sidenav__item" href="VirtualGridTable.example.html">VirtualGridTable only</a>
+        </section>
+      </nav>
+    </aside>
+
+    <section class="dash__mainWrap" aria-label="Main content wrapper">
+      <main class="dash__main" data-slot="main-content">
+        <header class="ui-pageHeader">
+          <div>
+            <h1 class="ui-pageHeader__title">Example Pages</h1>
+            <p class="ui-pageHeader__sub">All examples now live in <code>/examples</code> and share a common shell contract.</p>
+          </div>
+        </header>
+
+        <section class="ui-grid" aria-label="Example links">
+          <article class="ui-card ui-span-6">
+            <h2 class="ui-card__title">KPI Overview</h2>
+            <div class="ui-card__body">
+              <p>Card-heavy executive page with meters and feed widgets.</p>
+              <a class="ui-btn" href="DashboardKPI.example.html">Open</a>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-6">
+            <h2 class="ui-card__title">Data Tables</h2>
+            <div class="ui-card__body">
+              <p>VirtualGridTable embedded with dataset dropdown using regular <code>setData(...)</code>.</p>
+              <a class="ui-btn" href="DashboardTable.example.html">Open</a>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-6">
+            <h2 class="ui-card__title">Reports</h2>
+            <div class="ui-card__body">
+              <p>Large scrollable report list with role-controlled Delete action visibility.</p>
+              <a class="ui-btn" href="DashboardReports.example.html">Open</a>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-6">
+            <h2 class="ui-card__title">Shell Blueprint</h2>
+            <div class="ui-card__body">
+              <p>Layout-only page documenting slot and state hooks.</p>
+              <a class="ui-btn" href="DashboardShell.example.html">Open</a>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="dash__footer" data-slot="main-footer">
+        <small>Reference guide: <a href="../docs/COMPONENTS.md">../docs/COMPONENTS.md</a></small>
+      </footer>
+    </section>
+  </div>
+</body>
+
+</html>

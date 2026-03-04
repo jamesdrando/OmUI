@@ -1,3 +1,14 @@
+html[data-theme="light"] {
+  --shell-top-h: 56px;
+  --shell-left-w: 248px;
+  --shell-right-w: 300px;
+  --shell-content-max-w: 1160px;
+
+  --ui-card-pad: 16px;
+  --ui-control-h: 36px;
+  --ui-gap: 12px;
+}
+
 html[data-theme="light"] .vgt {
   --vgt-border: #c4d2e4;
   --vgt-bg: #ffffff;

@@ -16,6 +16,22 @@ html[data-theme="dark"] {
   --theme-success: #2b8f74;
   --theme-focus: #83b2ea;
 
+  --theme-space-1: 4px;
+  --theme-space-2: 8px;
+  --theme-space-3: 12px;
+  --theme-space-4: 16px;
+  --theme-space-5: 20px;
+  --theme-space-6: 24px;
+
+  --shell-top-h: 56px;
+  --shell-left-w: 248px;
+  --shell-right-w: 300px;
+  --shell-content-max-w: 1160px;
+
+  --ui-card-pad: 16px;
+  --ui-control-h: 36px;
+  --ui-gap: 12px;
+
   --theme-radius-sm: 6px;
   --theme-radius-md: 8px;
   --theme-radius-lg: 10px;

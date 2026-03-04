@@ -2856,72 +2856,85 @@ window.setAppTheme = function setAppTheme(mode) {
   return theme;
 };
 
-const grid = new VirtualGridTable("grid", {
-  rowHeight: 28,
-  visibleCols: 6,
-  overscan: 2,
-  demo_mode: true,
-  demo_rows: 50000,
-});
+(function autoInitVgtDemo() {
+  const host = document.getElementById("grid");
+  if (!host) return;
 
-if (grid._opts.demo_mode === "chunked") {
-  grid.setLoading(true);
-  grid.setChunkMode({
-    columns: [
-      { key: "id", label: "id" },
-      { key: "title", label: "title" },
-      { key: "price", label: "price" },
-      { key: "category", label: "category" },
-      { key: "brand", label: "brand" },
-      { key: "rating", label: "rating" },
-      { key: "stock", label: "stock" },
-    ],
-    totalRows: 0,
-    chunkSize: 50,
-    async fetchChunk(request) {
-      const limit = request.size;
-      const skip = request.start;
-      const url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Chunk fetch failed (${response.status}): ${url}`);
-      }
+  const autoOptions =
+    window.__VGT_AUTO_INIT_OPTIONS__ && typeof window.__VGT_AUTO_INIT_OPTIONS__ === "object"
+      ? window.__VGT_AUTO_INIT_OPTIONS__
+      : {};
 
-      const payload = await response.json();
-      return {
-        start: payload.skip ?? skip,
-        totalRows: payload.total ?? 0,
-        rows: (payload.products ?? []).map((item) => [
-          item.id,
-          item.title,
-          item.price,
-          item.category,
-          item.brand,
-          item.rating,
-          item.stock,
-        ]),
-      };
-    },
+  const grid = new VirtualGridTable("grid", {
+    rowHeight: 28,
+    visibleCols: 6,
+    overscan: 2,
+    demo_mode: true,
+    demo_rows: 50000,
+    ...autoOptions,
   });
-  grid.setLoading(false);
-} else if (grid._opts.demo_mode === true) {
-  grid.setLoading(true);
 
-  const demo = [];
-  for (let i = 0; i < grid._opts.demo_rows; i += 1) {
-    demo.push({
-      id: i + 1,
-      name: "Item " + (i + 1),
-      qty: (i % 13) + 1,
-      price: ((i % 97) + 1) * 1.25,
-      category: ["A", "B", "C", "D"][i % 4],
-      note: i % 5 === 0 ? "longer text that should ellipsize nicely" : "",
-      ts: Date.now() - i * 1000,
+  window.vgtDemoGrid = grid;
+
+  if (grid._opts.demo_mode === "chunked") {
+    grid.setLoading(true);
+    grid.setChunkMode({
+      columns: [
+        { key: "id", label: "id" },
+        { key: "title", label: "title" },
+        { key: "price", label: "price" },
+        { key: "category", label: "category" },
+        { key: "brand", label: "brand" },
+        { key: "rating", label: "rating" },
+        { key: "stock", label: "stock" },
+      ],
+      totalRows: 0,
+      chunkSize: 50,
+      async fetchChunk(request) {
+        const limit = request.size;
+        const skip = request.start;
+        const url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Chunk fetch failed (${response.status}): ${url}`);
+        }
+
+        const payload = await response.json();
+        return {
+          start: payload.skip ?? skip,
+          totalRows: payload.total ?? 0,
+          rows: (payload.products ?? []).map((item) => [
+            item.id,
+            item.title,
+            item.price,
+            item.category,
+            item.brand,
+            item.rating,
+            item.stock,
+          ]),
+        };
+      },
     });
-  }
-
-  setTimeout(() => {
-    grid.setData(demo);
     grid.setLoading(false);
-  }, 250);
-}
+  } else if (grid._opts.demo_mode === true) {
+    grid.setLoading(true);
+
+    const demo = [];
+    for (let i = 0; i < grid._opts.demo_rows; i += 1) {
+      demo.push({
+        id: i + 1,
+        name: "Item " + (i + 1),
+        qty: (i % 13) + 1,
+        price: ((i % 97) + 1) * 1.25,
+        category: ["A", "B", "C", "D"][i % 4],
+        note: i % 5 === 0 ? "longer text that should ellipsize nicely" : "",
+        ts: Date.now() - i * 1000,
+      });
+    }
+
+    setTimeout(() => {
+      grid.setData(demo);
+      grid.setLoading(false);
+    }, 250);
+  }
+})();

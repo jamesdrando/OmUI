@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Reports Example</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/dashboard-shell.css" />
+  <link rel="stylesheet" href="../css/theme-light.css" />
+</head>
+
+<body>
+  <div class="dash" data-right-rail="on" data-user-role="member" aria-label="Reports dashboard shell" id="reportsShell">
+    <input class="dash__toggle dash__toggleLeft" id="reports-toggle-left" type="checkbox" />
+    <input class="dash__toggle dash__toggleRight" id="reports-toggle-right" type="checkbox" />
+
+    <header class="dash__topbar ui-topbar" data-slot="top-nav">
+      <div class="ui-topbar__left">
+        <label class="dash__menuBtn ui-btn ui-btn--ghost" for="reports-toggle-left" role="button" tabindex="0">Menu</label>
+        <a class="ui-topbar__brand" href="index.html">OmUI Console</a>
+      </div>
+
+      <div class="ui-topbar__spacer"></div>
+
+      <div class="ui-topbar__right">
+        <nav class="ui-tabs" aria-label="Primary tabs">
+          <a class="ui-tab" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-tab" href="DashboardTable.example.html">Tables</a>
+          <a class="ui-tab" href="DashboardReports.example.html" data-active="true">Reports</a>
+        </nav>
+        <label class="dash__menuBtn dash__menuBtn--right ui-btn ui-btn--ghost" for="reports-toggle-right" role="button" tabindex="0">Rail</label>
+      </div>
+    </header>
+
+    <label class="dash__backdrop dash__backdrop--left" for="reports-toggle-left" aria-hidden="true"></label>
+    <label class="dash__backdrop dash__backdrop--right" for="reports-toggle-right" aria-hidden="true"></label>
+
+    <aside class="dash__left" data-slot="left-nav" aria-label="Primary navigation">
+      <nav class="ui-sidenav" aria-label="Main sections">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Navigation</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html">Data tables</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html" data-current="page" data-active="true">Reports</a>
+          <a class="ui-sidenav__item" href="DashboardShell.example.html">Layout shell</a>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Admin</h2>
+          <a class="ui-sidenav__item" href="#">Users</a>
+          <a class="ui-sidenav__item" href="#">Tenants</a>
+          <a class="ui-sidenav__item" href="#">Settings</a>
+        </section>
+      </nav>
+    </aside>
+
+    <section class="dash__mainWrap" aria-label="Main content wrapper">
+      <main class="dash__main" data-slot="main-content">
+        <header class="ui-pageHeader">
+          <div>
+            <h1 class="ui-pageHeader__title">Reports</h1>
+            <p class="ui-pageHeader__sub">Scrollable report list with Open/Edit actions and admin-only Delete actions.</p>
+          </div>
+          <div class="ui-tablePanel__controls">
+            <label class="ui-formRow__label" for="roleSelect">Role</label>
+            <select class="ui-select ui-tablePanel__select" id="roleSelect" aria-label="Current user role">
+              <option value="member" selected>Member</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </header>
+
+        <section class="ui-grid" aria-label="Reports list">
+          <article class="ui-card ui-span-12 ui-reportPanel">
+            <header class="ui-tablePanel__head">
+              <h2 class="ui-tablePanel__title">Saved Reports</h2>
+              <span class="ui-tablePanel__meta">38 reports | sorted by recently updated</span>
+            </header>
+
+            <div class="ui-reportList" role="list" aria-label="Saved reports list">
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Revenue by Tenant | Last 30 Days</h3><p class="ui-reportMeta">Updated 2h ago | Owner: Finance Ops | Scope: Multi-tenant</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Active Subscriptions by Plan</h3><p class="ui-reportMeta">Updated 5h ago | Owner: Growth | Scope: Global</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Top 100 Accounts by ARR</h3><p class="ui-reportMeta">Updated 8h ago | Owner: Sales Ops | Scope: Enterprise</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Usage Heatmap by Region</h3><p class="ui-reportMeta">Updated 12h ago | Owner: Product | Scope: Regional</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Daily Error Budget Burn</h3><p class="ui-reportMeta">Updated 15h ago | Owner: SRE | Scope: Platform</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Ticket Resolution SLA</h3><p class="ui-reportMeta">Updated 1d ago | Owner: Support | Scope: CS</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Quarterly Renewals at Risk</h3><p class="ui-reportMeta">Updated 1d ago | Owner: Customer Success | Scope: Revenue</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Product Adoption Funnel</h3><p class="ui-reportMeta">Updated 1d ago | Owner: Product Analytics | Scope: Feature usage</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Latency by Endpoint (p95)</h3><p class="ui-reportMeta">Updated 2d ago | Owner: API Platform | Scope: Service quality</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Data Export Volume by Tenant</h3><p class="ui-reportMeta">Updated 2d ago | Owner: Data Platform | Scope: Compliance</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Onboarding Completion Rates</h3><p class="ui-reportMeta">Updated 3d ago | Owner: Lifecycle | Scope: Activation</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Tenant Storage Growth</h3><p class="ui-reportMeta">Updated 3d ago | Owner: Infrastructure | Scope: Storage</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Weekly Product Engagement</h3><p class="ui-reportMeta">Updated 4d ago | Owner: PMM | Scope: Weekly cadence</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Failed Webhooks Summary</h3><p class="ui-reportMeta">Updated 4d ago | Owner: Integrations | Scope: External systems</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">MRR Movement by Segment</h3><p class="ui-reportMeta">Updated 5d ago | Owner: RevOps | Scope: Segment trends</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Incident Postmortem Tracker</h3><p class="ui-reportMeta">Updated 5d ago | Owner: Reliability | Scope: Engineering</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Monthly Feature Flag Usage</h3><p class="ui-reportMeta">Updated 6d ago | Owner: Platform | Scope: Internal tooling</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Regional Revenue Rollup</h3><p class="ui-reportMeta">Updated 6d ago | Owner: FP&A | Scope: Quarterly review</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Customer Health Scoring Audit</h3><p class="ui-reportMeta">Updated 7d ago | Owner: CS Operations | Scope: Retention</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+              <article class="ui-reportItem" role="listitem">
+                <div class="ui-reportInfo"><h3 class="ui-reportTitle">Billing Exceptions Queue</h3><p class="ui-reportMeta">Updated 7d ago | Owner: Billing | Scope: Exceptions</p></div>
+                <div class="ui-reportActions"><button class="ui-reportBtn">Open</button><button class="ui-reportBtn">Edit</button><button class="ui-reportBtn ui-reportBtn--danger">Delete</button></div>
+              </article>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="dash__footer" data-slot="main-footer">
+        <small>Delete buttons appear only for admin role. In production, set <code>data-user-role="admin"</code> server-side.</small>
+      </footer>
+    </section>
+
+    <aside class="dash__right" data-slot="right-rail" aria-label="Context rail">
+      <section class="ui-sidenav" aria-label="Reports context">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Current role</h2>
+          <span class="ui-roleTag" id="roleTag">member</span>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Actions</h2>
+          <a class="ui-sidenav__item" href="#">Create new report</a>
+          <a class="ui-sidenav__item" href="#">Manage shared views</a>
+          <a class="ui-sidenav__item" href="#">Archive old reports</a>
+        </section>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const shell = document.getElementById("reportsShell");
+      const roleSelect = document.getElementById("roleSelect");
+      const roleTag = document.getElementById("roleTag");
+      if (!shell || !roleSelect || !roleTag) return;
+
+      function applyRole(role) {
+        const next = role === "admin" ? "admin" : "member";
+        shell.setAttribute("data-user-role", next);
+        roleTag.textContent = next;
+      }
+
+      roleSelect.addEventListener("change", (event) => {
+        applyRole(event.target.value);
+      });
+
+      applyRole(roleSelect.value);
+    });
+  </script>
+</body>
+
+</html>

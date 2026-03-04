@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Table Example</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/dashboard-shell.css" />
+  <link rel="stylesheet" href="../css/vtg-styles.css" />
+  <link rel="stylesheet" href="../css/theme-light.css" />
+</head>
+
+<body>
+  <div class="dash" data-right-rail="on" aria-label="Table dashboard shell">
+    <input class="dash__toggle dash__toggleLeft" id="dash-toggle-left" type="checkbox" />
+    <input class="dash__toggle dash__toggleRight" id="dash-toggle-right" type="checkbox" />
+
+    <header class="dash__topbar ui-topbar" data-slot="top-nav">
+      <div class="ui-topbar__left">
+        <label class="dash__menuBtn ui-btn ui-btn--ghost" for="dash-toggle-left" role="button" tabindex="0">Menu</label>
+        <a class="ui-topbar__brand" href="index.html">OmUI Console</a>
+      </div>
+
+      <div class="ui-topbar__spacer"></div>
+
+      <div class="ui-topbar__right">
+        <nav class="ui-tabs" aria-label="Primary tabs">
+          <a class="ui-tab" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-tab" href="DashboardTable.example.html" data-active="true">Tables</a>
+          <a class="ui-tab" href="DashboardReports.example.html">Reports</a>
+        </nav>
+        <label class="dash__menuBtn dash__menuBtn--right ui-btn ui-btn--ghost" for="dash-toggle-right" role="button" tabindex="0">Rail</label>
+      </div>
+    </header>
+
+    <label class="dash__backdrop dash__backdrop--left" for="dash-toggle-left" aria-hidden="true"></label>
+    <label class="dash__backdrop dash__backdrop--right" for="dash-toggle-right" aria-hidden="true"></label>
+
+    <aside class="dash__left" data-slot="left-nav" aria-label="Primary navigation">
+      <nav class="ui-sidenav" aria-label="Main sections">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Navigation</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html" data-current="page" data-active="true">Data tables</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html">Reports</a>
+          <a class="ui-sidenav__item" href="DashboardShell.example.html">Layout shell</a>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Admin</h2>
+          <a class="ui-sidenav__item" href="#">Users</a>
+          <a class="ui-sidenav__item" href="#">Tenants</a>
+          <a class="ui-sidenav__item" href="#">Settings</a>
+        </section>
+      </nav>
+    </aside>
+
+    <section class="dash__mainWrap" aria-label="Main content wrapper">
+      <main class="dash__main" data-slot="main-content">
+        <header class="ui-pageHeader">
+          <div>
+            <h1 class="ui-pageHeader__title">Data Tables</h1>
+            <p class="ui-pageHeader__sub">Switch between non-chunked datasets to preview table behavior in-place.</p>
+          </div>
+          <button class="ui-btn" type="button">Export CSV</button>
+        </header>
+
+        <section class="ui-grid" aria-label="Table page content">
+          <article class="ui-card ui-span-12 ui-tablePanel">
+            <header class="ui-tablePanel__head">
+              <h2 class="ui-tablePanel__title">VirtualGridTable</h2>
+              <div class="ui-tablePanel__tools">
+                <div class="ui-tablePanel__controls">
+                  <label class="ui-formRow__label" for="tableDatasetSelect">Dataset</label>
+                  <select id="tableDatasetSelect" class="ui-select ui-tablePanel__select" aria-label="Choose dataset">
+                    <option value="orders">Orders</option>
+                    <option value="customers">Customers</option>
+                    <option value="subscriptions">Subscriptions</option>
+                  </select>
+                </div>
+                <span class="ui-tablePanel__meta" id="tableDatasetMeta">Ready</span>
+              </div>
+            </header>
+            <div class="ui-tablePanel__body">
+              <div id="grid" aria-label="Virtual data grid"></div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="dash__footer" data-slot="main-footer">
+        <small>Using <code>setData(...)</code> in regular mode (no chunking). Try <code>setAppTheme("light")</code> in console.</small>
+      </footer>
+    </section>
+
+    <aside class="dash__right" data-slot="right-rail" aria-label="Context rail">
+      <section class="ui-sidenav" aria-label="Context details">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Table hints</h2>
+          <div class="ui-alert" data-tone="info">Use drag on row and column bumpers to select ranges quickly.</div>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Loaded columns</h2>
+          <a class="ui-sidenav__item" href="#">Search and sort enabled</a>
+          <a class="ui-sidenav__item" href="#">Column filters enabled</a>
+          <a class="ui-sidenav__item" href="#">Clipboard copy enabled</a>
+        </section>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    window.__VGT_AUTO_INIT_OPTIONS__ = {
+      demo_mode: false,
+      width: "100%",
+      height: "100%",
+    };
+  </script>
+  <script src="../js/VirtualGridTable.js" defer></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const grid = window.vgtDemoGrid;
+      const selector = document.getElementById("tableDatasetSelect");
+      const meta = document.getElementById("tableDatasetMeta");
+
+      if (!grid || !selector || !meta) return;
+
+      const names = ["Alex", "Morgan", "Jordan", "Taylor", "Riley", "Casey", "Drew", "Avery"];
+      const regions = ["US", "EU", "APAC", "LATAM"];
+      const statuses = ["new", "processing", "fulfilled", "cancelled", "refunded"];
+      const plans = ["Starter", "Growth", "Pro", "Enterprise"];
+
+      function buildOrders(totalRows) {
+        const columns = [
+          { key: "order_id", label: "order_id" },
+          { key: "customer", label: "customer" },
+          { key: "status", label: "status" },
+          { key: "region", label: "region" },
+          { key: "items", label: "items" },
+          { key: "total", label: "total" },
+          { key: "created_at", label: "created_at" },
+        ];
+        const rows = [];
+        for (let i = 0; i < totalRows; i += 1) {
+          const date = new Date(Date.now() - i * 3600_000).toISOString().slice(0, 19).replace("T", " ");
+          rows.push([
+            100_000 + i,
+            names[i % names.length] + " " + (i % 97),
+            statuses[i % statuses.length],
+            regions[i % regions.length],
+            (i % 7) + 1,
+            ((i % 900) * 1.15 + 24).toFixed(2),
+            date,
+          ]);
+        }
+        return { columns, rows };
+      }
+
+      function buildCustomers(totalRows) {
+        const columns = [
+          { key: "customer_id", label: "customer_id" },
+          { key: "name", label: "name" },
+          { key: "email", label: "email" },
+          { key: "region", label: "region" },
+          { key: "lifetime_value", label: "lifetime_value" },
+          { key: "orders", label: "orders" },
+          { key: "last_seen", label: "last_seen" },
+        ];
+        const rows = [];
+        for (let i = 0; i < totalRows; i += 1) {
+          rows.push([
+            50_000 + i,
+            names[i % names.length] + " " + (i % 113),
+            "user" + i + "@example.com",
+            regions[i % regions.length],
+            ((i % 5000) * 2.38 + 50).toFixed(2),
+            (i % 32) + 1,
+            new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10),
+          ]);
+        }
+        return { columns, rows };
+      }
+
+      function buildSubscriptions(totalRows) {
+        const columns = [
+          { key: "subscription_id", label: "subscription_id" },
+          { key: "account", label: "account" },
+          { key: "plan", label: "plan" },
+          { key: "mrr", label: "mrr" },
+          { key: "seats", label: "seats" },
+          { key: "renewal_date", label: "renewal_date" },
+          { key: "health", label: "health" },
+        ];
+        const rows = [];
+        for (let i = 0; i < totalRows; i += 1) {
+          rows.push([
+            800_000 + i,
+            "acct-" + (i + 1),
+            plans[i % plans.length],
+            ((i % 1200) * 3.41 + 99).toFixed(2),
+            (i % 280) + 5,
+            new Date(Date.now() + ((i % 365) + 1) * 86_400_000).toISOString().slice(0, 10),
+            ["healthy", "watch", "at-risk"][i % 3],
+          ]);
+        }
+        return { columns, rows };
+      }
+
+      const datasetBuilders = {
+        orders: () => buildOrders(14_000),
+        customers: () => buildCustomers(10_000),
+        subscriptions: () => buildSubscriptions(12_000),
+      };
+
+      const datasetLabels = {
+        orders: "Orders",
+        customers: "Customers",
+        subscriptions: "Subscriptions",
+      };
+
+      const cache = Object.create(null);
+
+      function loadDataset(key) {
+        const selected = datasetBuilders[key] ? key : "orders";
+        if (!cache[selected]) {
+          cache[selected] = datasetBuilders[selected]();
+        }
+
+        const payload = cache[selected];
+        grid.setLoading(true);
+
+        requestAnimationFrame(() => {
+          grid.setData(payload);
+          grid.clearSearch();
+          grid.clearColumnFilters();
+          grid.clearSort();
+          grid.setLoading(false);
+          meta.textContent = `${datasetLabels[selected]} | ${payload.rows.length.toLocaleString()} rows | ${payload.columns.length} columns`;
+        });
+      }
+
+      selector.addEventListener("change", (event) => {
+        loadDataset(event.target.value);
+      });
+
+      loadDataset(selector.value);
+    });
+  </script>
+</body>
+
+</html>

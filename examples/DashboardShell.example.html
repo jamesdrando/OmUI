@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Shell Example</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/dashboard-shell.css" />
+  <link rel="stylesheet" href="../css/theme-light.css" />
+</head>
+
+<body>
+  <div class="dash" data-right-rail="on" aria-label="Dashboard shell container">
+    <input class="dash__toggle dash__toggleLeft" id="dash-toggle-left" type="checkbox" />
+    <input class="dash__toggle dash__toggleRight" id="dash-toggle-right" type="checkbox" />
+
+    <header class="dash__topbar ui-topbar" data-slot="top-nav">
+      <div class="ui-topbar__left">
+        <label class="dash__menuBtn ui-btn ui-btn--ghost" for="dash-toggle-left" role="button" tabindex="0">Menu</label>
+        <a class="ui-topbar__brand" href="index.html">OmUI Console</a>
+      </div>
+
+      <div class="ui-topbar__spacer"></div>
+
+      <div class="ui-topbar__right">
+        <nav class="ui-tabs" aria-label="Primary tabs">
+          <a class="ui-tab" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-tab" href="DashboardTable.example.html">Tables</a>
+          <a class="ui-tab" href="DashboardReports.example.html">Reports</a>
+        </nav>
+        <label class="dash__menuBtn dash__menuBtn--right ui-btn ui-btn--ghost" for="dash-toggle-right" role="button" tabindex="0">Rail</label>
+      </div>
+    </header>
+
+    <label class="dash__backdrop dash__backdrop--left" for="dash-toggle-left" aria-hidden="true"></label>
+    <label class="dash__backdrop dash__backdrop--right" for="dash-toggle-right" aria-hidden="true"></label>
+
+    <aside class="dash__left" data-slot="left-nav" aria-label="Primary navigation">
+      <nav class="ui-sidenav" aria-label="Sidebar navigation">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Navigation</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html">Overview</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html">Data tables</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html">Reports</a>
+          <a class="ui-sidenav__item" href="DashboardShell.example.html" data-current="page" data-active="true">Layout shell</a>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Admin</h2>
+          <a class="ui-sidenav__item" href="#">Users</a>
+          <a class="ui-sidenav__item" href="#">Tenants</a>
+          <a class="ui-sidenav__item" href="#">Settings</a>
+        </section>
+      </nav>
+    </aside>
+
+    <section class="dash__mainWrap" aria-label="Main workspace container">
+      <main class="dash__main" data-slot="main-content">
+        <header class="ui-pageHeader">
+          <div>
+            <h1 class="ui-pageHeader__title">Shell Layout Blueprint</h1>
+            <p class="ui-pageHeader__sub">Use this page as the base container template for SSR pages and app sections.</p>
+          </div>
+          <a class="ui-btn" href="DashboardTable.example.html">Open table page</a>
+        </header>
+
+        <section class="ui-grid" aria-label="Summary and content cards">
+          <article class="ui-card ui-span-4" style="--ui-card-pad: 18px;">
+            <h2 class="ui-card__title">Top nav</h2>
+            <p class="ui-card__value">Sticky</p>
+          </article>
+
+          <article class="ui-card ui-span-4">
+            <h2 class="ui-card__title">Left rail</h2>
+            <p class="ui-card__value">Sectioned nav</p>
+          </article>
+
+          <article class="ui-card ui-span-4">
+            <h2 class="ui-card__title">Right rail</h2>
+            <p class="ui-card__value">Context blocks</p>
+          </article>
+
+          <article class="ui-card ui-span-8">
+            <h2 class="ui-card__title">SSR hooks</h2>
+            <div class="ui-card__body">
+              <ul class="ui-list">
+                <li class="ui-list__item"><code>data-slot="top-nav|left-nav|right-rail|main-content|main-footer"</code></li>
+                <li class="ui-list__item"><code>data-current="page"</code> for active links</li>
+                <li class="ui-list__item"><code>data-active="true"</code> for highlighted controls</li>
+                <li class="ui-list__item"><code>data-right-rail="off"</code> to collapse the right rail</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-4">
+            <h2 class="ui-card__title">Examples</h2>
+            <div class="ui-card__body ui-feed">
+              <div class="ui-feed__item"><a class="ui-sidenav__item" href="DashboardKPI.example.html">KPI Overview</a></div>
+              <div class="ui-feed__item"><a class="ui-sidenav__item" href="DashboardTable.example.html">Data Tables</a></div>
+              <div class="ui-feed__item"><a class="ui-sidenav__item" href="DashboardReports.example.html">Reports</a></div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="dash__footer" data-slot="main-footer">
+        <small>Shell-only reference page. Pair with the component guide in <a href="../docs/COMPONENTS.md">../docs/COMPONENTS.md</a>.</small>
+      </footer>
+    </section>
+
+    <aside class="dash__right" data-slot="right-rail" aria-label="Supporting context rail">
+      <section class="ui-sidenav" aria-label="Right rail content">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Status</h2>
+          <div class="ui-alert" data-tone="success">All core services healthy.</div>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Quick links</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html">Overview page</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html">Table page</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html">Reports page</a>
+        </section>
+      </section>
+    </aside>
+  </div>
+</body>
+
+</html>

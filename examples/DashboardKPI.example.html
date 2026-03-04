@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard KPI Example</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/dashboard-shell.css" />
+  <link rel="stylesheet" href="../css/theme-light.css" />
+</head>
+
+<body>
+  <div class="dash" data-right-rail="on" aria-label="KPI dashboard shell">
+    <input class="dash__toggle dash__toggleLeft" id="kpi-toggle-left" type="checkbox" />
+    <input class="dash__toggle dash__toggleRight" id="kpi-toggle-right" type="checkbox" />
+
+    <header class="dash__topbar ui-topbar" data-slot="top-nav">
+      <div class="ui-topbar__left">
+        <label class="dash__menuBtn ui-btn ui-btn--ghost" for="kpi-toggle-left" role="button" tabindex="0">Menu</label>
+        <a class="ui-topbar__brand" href="index.html">OmUI Console</a>
+      </div>
+
+      <div class="ui-topbar__spacer"></div>
+
+      <div class="ui-topbar__right">
+        <nav class="ui-tabs" aria-label="Primary tabs">
+          <a class="ui-tab" href="DashboardKPI.example.html" data-active="true">Overview</a>
+          <a class="ui-tab" href="DashboardTable.example.html">Tables</a>
+          <a class="ui-tab" href="DashboardReports.example.html">Reports</a>
+        </nav>
+        <label class="dash__menuBtn dash__menuBtn--right ui-btn ui-btn--ghost" for="kpi-toggle-right" role="button" tabindex="0">Rail</label>
+      </div>
+    </header>
+
+    <label class="dash__backdrop dash__backdrop--left" for="kpi-toggle-left" aria-hidden="true"></label>
+    <label class="dash__backdrop dash__backdrop--right" for="kpi-toggle-right" aria-hidden="true"></label>
+
+    <aside class="dash__left" data-slot="left-nav" aria-label="Primary navigation">
+      <nav class="ui-sidenav" aria-label="Main sections">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Navigation</h2>
+          <a class="ui-sidenav__item" href="DashboardKPI.example.html" data-current="page" data-active="true">Overview</a>
+          <a class="ui-sidenav__item" href="DashboardTable.example.html">Data tables</a>
+          <a class="ui-sidenav__item" href="DashboardReports.example.html">Reports</a>
+          <a class="ui-sidenav__item" href="DashboardShell.example.html">Layout shell</a>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Admin</h2>
+          <a class="ui-sidenav__item" href="#">Users</a>
+          <a class="ui-sidenav__item" href="#">Tenants</a>
+          <a class="ui-sidenav__item" href="#">Settings</a>
+        </section>
+      </nav>
+    </aside>
+
+    <section class="dash__mainWrap" aria-label="Main content wrapper">
+      <main class="dash__main" data-slot="main-content">
+        <header class="ui-pageHeader">
+          <div>
+            <h1 class="ui-pageHeader__title">KPI Overview</h1>
+            <p class="ui-pageHeader__sub">Executive snapshot with reusable cards, meters, and feed widgets.</p>
+          </div>
+          <button class="ui-btn" type="button">Generate report</button>
+        </header>
+
+        <section class="ui-grid" aria-label="KPI cards and widgets">
+          <article class="ui-card ui-span-3">
+            <div class="ui-kpi">
+              <p class="ui-kpi__label">Revenue (MTD)</p>
+              <p class="ui-kpi__value">$1.82M</p>
+              <span class="ui-kpi__trend" data-tone="success">+12.4%</span>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-3">
+            <div class="ui-kpi">
+              <p class="ui-kpi__label">Gross margin</p>
+              <p class="ui-kpi__value">61.7%</p>
+              <span class="ui-kpi__trend" data-tone="success">+1.8%</span>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-3">
+            <div class="ui-kpi">
+              <p class="ui-kpi__label">Active customers</p>
+              <p class="ui-kpi__value">42,906</p>
+              <span class="ui-kpi__trend" data-tone="success">+4.1%</span>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-3">
+            <div class="ui-kpi">
+              <p class="ui-kpi__label">Churn (30d)</p>
+              <p class="ui-kpi__value">2.9%</p>
+              <span class="ui-kpi__trend" data-tone="danger">+0.3%</span>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-8">
+            <h2 class="ui-card__title">Pipeline health</h2>
+            <div class="ui-card__body ui-meterList">
+              <div class="ui-meterRow">
+                <div class="ui-meterRow__head">
+                  <span>Lead to SQL</span>
+                  <span>68%</span>
+                </div>
+                <div class="ui-meter"><div class="ui-meter__bar" style="width: 68%"></div></div>
+              </div>
+
+              <div class="ui-meterRow">
+                <div class="ui-meterRow__head">
+                  <span>SQL to Opportunity</span>
+                  <span>53%</span>
+                </div>
+                <div class="ui-meter"><div class="ui-meter__bar" style="width: 53%"></div></div>
+              </div>
+
+              <div class="ui-meterRow">
+                <div class="ui-meterRow__head">
+                  <span>Opportunity to Closed Won</span>
+                  <span>37%</span>
+                </div>
+                <div class="ui-meter"><div class="ui-meter__bar" style="width: 37%"></div></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-4">
+            <h2 class="ui-card__title">Operating signals</h2>
+            <div class="ui-card__body ui-feed">
+              <div class="ui-feed__item">
+                <p class="ui-feed__meta">Capacity</p>
+                <p class="ui-feed__text">API cluster at 74% utilization.</p>
+              </div>
+              <div class="ui-feed__item">
+                <p class="ui-feed__meta">Latency</p>
+                <p class="ui-feed__text">p95 improved by 9ms week-over-week.</p>
+              </div>
+              <div class="ui-feed__item">
+                <p class="ui-feed__meta">Cost</p>
+                <p class="ui-feed__text">Compute spend tracking 3.2% under plan.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="ui-card ui-span-12">
+            <h2 class="ui-card__title">Notes</h2>
+            <div class="ui-card__body">
+              <div class="ui-alert" data-tone="info">All values are static placeholders to demonstrate shell and component styling only.</div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="dash__footer" data-slot="main-footer">
+        <small>Use this page as a KPI/card baseline. Try <code>setAppTheme("light")</code> in console.</small>
+      </footer>
+    </section>
+
+    <aside class="dash__right" data-slot="right-rail" aria-label="Context rail">
+      <section class="ui-sidenav" aria-label="Supporting context">
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Today</h2>
+          <div class="ui-alert" data-tone="success">No critical alerts.</div>
+        </section>
+
+        <section class="ui-sidenav__section">
+          <h2 class="ui-sidenav__title">Targets</h2>
+          <a class="ui-sidenav__item" href="#">ARR: 71% of goal</a>
+          <a class="ui-sidenav__item" href="#">NPS: 52 / target 55</a>
+          <a class="ui-sidenav__item" href="#">SLA: 99.95% / target 99.9%</a>
+        </section>
+      </section>
+    </aside>
+  </div>
+</body>
+
+</html>
