@@ -41,7 +41,8 @@ export function DataTablePanel(props: DataTablePanelProps) {
           JSON.stringify({
             defaultDataset: props.defaultDataset,
             options: props.datasetOptions,
-            datasetEndpointBase: "/api/datasets",
+            datasetsEndpoint: "/api/analytics/datasets",
+            queryEndpoint: "/api/analytics/query",
           }),
         )}
       </script>

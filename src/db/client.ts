@@ -7,10 +7,6 @@ const defaultDbPath = configuredPath === ":memory:" ? configuredPath : resolve(p
 
 let db: Database | null = null;
 
-export function getDbPath() {
-  return defaultDbPath;
-}
-
 export function getDb() {
   if (db) return db;
 
@@ -18,8 +14,8 @@ export function getDb() {
     mkdirSync(dirname(defaultDbPath), { recursive: true });
   }
   db = new Database(defaultDbPath, { create: true });
-  db.exec("PRAGMA foreign_keys = ON;");
-  db.exec("PRAGMA journal_mode = WAL;");
+  db.run("PRAGMA foreign_keys = ON;");
+  db.run("PRAGMA journal_mode = WAL;");
   return db;
 }
 

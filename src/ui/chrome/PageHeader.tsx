@@ -25,7 +25,7 @@ export function PageHeader(props: PageHeaderProps) {
                 {action.label}
               </a>
             ) : (
-              <button class="ui-btn" type={action.buttonType ?? "button"}>
+              <button class="ui-btn" type={action.buttonType ?? "button"} data-action={action.actionId}>
                 {action.label}
               </button>
             ),

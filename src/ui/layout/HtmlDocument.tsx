@@ -18,6 +18,7 @@ export function HtmlDocument(props: HtmlDocumentProps) {
         <link rel="stylesheet" href="/css/theme.css" />
         <link rel="stylesheet" href="/css/dashboard-shell.css" />
         <link rel="stylesheet" href="/css/vtg-styles.css" />
+        <link rel="stylesheet" href="/css/analytics.css" />
         <link rel="stylesheet" href="/css/theme-light.css" />
       </head>
       <body>{children}{scripts.map((src) => <script src={src} defer></script>)}</body>

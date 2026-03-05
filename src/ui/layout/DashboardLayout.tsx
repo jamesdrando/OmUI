@@ -26,7 +26,6 @@ export function DashboardLayout(props: DashboardLayoutProps) {
           currentPage={page.pageId}
           tabs={page.topTabs}
           leftToggleId={leftToggleId}
-          rightToggleId={rightToggleId}
           userName={page.userName}
           showLogout={true}
         />
@@ -47,6 +46,17 @@ export function DashboardLayout(props: DashboardLayoutProps) {
             <small>{footerText}</small>
           </footer>
         </section>
+
+        {page.rightRail === "on" ? (
+          <>
+            <label class="dash__railHandle dash__railHandle--open" for={rightToggleId} role="button" tabindex={0} aria-label="Open right rail">
+              &lt;
+            </label>
+            <label class="dash__railHandle dash__railHandle--close" for={rightToggleId} role="button" tabindex={0} aria-label="Collapse right rail">
+              &gt;
+            </label>
+          </>
+        ) : null}
 
         <aside class="dash__right" data-slot="right-rail" aria-label="Context rail">
           <RightRail sections={page.rightRailSections} />

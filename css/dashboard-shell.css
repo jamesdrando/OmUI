@@ -4,7 +4,11 @@
 }
 
 .dash {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
   min-height: 100dvh;
+  position: relative;
   display: grid;
   grid-template-columns: var(--shell-left-w) minmax(0, 1fr) var(--shell-right-w);
   grid-template-rows: var(--shell-top-h) minmax(0, 1fr);
@@ -77,7 +81,8 @@
 
 .dash__main {
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: var(--theme-space-5);
 }
 
@@ -113,10 +118,41 @@
 }
 
 
-.dash__menuBtn {
+.dash__menuBtn.ui-btn {
   display: none;
   cursor: pointer;
   user-select: none;
+}
+
+.dash__railHandle {
+  display: none;
+  position: fixed;
+  top: calc(var(--shell-top-h) + 12px);
+  inline-size: 20px;
+  block-size: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--theme-border);
+  border-right: 0;
+  border-radius: var(--theme-radius-md) 0 0 var(--theme-radius-md);
+  background: linear-gradient(180deg, var(--theme-surface-2), var(--theme-surface-3));
+  color: var(--theme-text-muted);
+  cursor: pointer;
+  user-select: none;
+  z-index: 44;
+}
+
+.dash__railHandle:hover {
+  color: var(--theme-text);
+  border-color: color-mix(in srgb, var(--theme-accent) 52%, var(--theme-border));
+}
+
+.dash__railHandle--open {
+  right: 0;
+}
+
+.dash__railHandle--close {
+  right: calc(var(--shell-right-w) - 20px);
 }
 
 .dash__backdrop {
@@ -320,6 +356,12 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-focus) 30%, transparent);
 }
 
+.dash__railHandle:focus {
+  outline: none;
+  border-color: var(--theme-focus);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-focus) 30%, transparent);
+}
+
 .ui-formRow {
   display: grid;
   gap: var(--theme-space-2);
@@ -414,6 +456,31 @@
 }
 
 @media (max-width: 900px) {
+  .ui-topbar__right .ui-tabs,
+  .ui-topbar__right form .ui-roleTag {
+    display: none;
+  }
+
+  .dash[data-right-rail="on"] .dash__railHandle--open {
+    display: inline-flex;
+  }
+
+  .dash[data-right-rail="on"] .dash__railHandle--close {
+    right: calc(min(82vw, var(--shell-right-w)) - 20px);
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) .dash__railHandle--open {
+    display: none;
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) .dash__railHandle--close {
+    display: inline-flex;
+  }
+
+  .dash[data-right-rail="off"] .dash__railHandle {
+    display: none;
+  }
+
   .dash {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
@@ -448,7 +515,7 @@
     transform: translateX(103%);
   }
 
-  .dash__menuBtn {
+  .dash__menuBtn.ui-btn {
     display: inline-flex;
     align-items: center;
   }
@@ -478,16 +545,70 @@
     pointer-events: auto;
   }
 
-  .dash[data-right-rail="off"] .dash__menuBtn--right {
-    display: none;
-  }
-
   .dash__main {
     padding: var(--theme-space-4);
   }
 
   .dash__footer {
     padding: var(--theme-space-3) var(--theme-space-4);
+  }
+}
+
+@media (min-width: 901px) {
+  .dash__menuBtn.ui-btn {
+    display: inline-flex;
+  }
+
+  .dash[data-right-rail="on"] .dash__railHandle--close {
+    display: inline-flex;
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) .dash__railHandle--close {
+    display: none;
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) .dash__railHandle--open {
+    display: inline-flex;
+  }
+
+  .dash[data-right-rail="off"] .dash__railHandle {
+    display: none;
+  }
+
+  .dash:has(.dash__toggleLeft:checked) .dash__left {
+    display: none;
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) .dash__right {
+    display: none;
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleLeft:checked) {
+    grid-template-columns: minmax(0, 1fr) var(--shell-right-w);
+    grid-template-areas:
+      "topbar topbar"
+      "main right";
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleRight:checked) {
+    grid-template-columns: var(--shell-left-w) minmax(0, 1fr);
+    grid-template-areas:
+      "topbar topbar"
+      "left main";
+  }
+
+  .dash[data-right-rail="on"]:has(.dash__toggleLeft:checked):has(.dash__toggleRight:checked) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "topbar"
+      "main";
+  }
+
+  .dash[data-right-rail="off"]:has(.dash__toggleLeft:checked) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "topbar"
+      "main";
   }
 }
 

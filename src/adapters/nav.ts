@@ -6,6 +6,7 @@ export function makePageSpec(currentPage: DashboardPageId, ctx: RequestContext):
   const navItems = [
     { key: "overview", label: "Overview", href: "/dashboard/overview" },
     { key: "tables", label: "Data tables", href: "/dashboard/tables" },
+    { key: "analytics", label: "Analytics", href: "/dashboard/analytics" },
     { key: "items", label: "Items", href: "/dashboard/items" },
     { key: "shell", label: "Layout shell", href: "/dashboard/shell" },
   ] as const;
@@ -13,6 +14,7 @@ export function makePageSpec(currentPage: DashboardPageId, ctx: RequestContext):
   const titleMap: Record<DashboardPageId, string> = {
     overview: "KPI Overview",
     tables: "Data Tables",
+    analytics: "Analytics Studio",
     items: "Items",
     users: "Users",
     shell: "Shell Layout Blueprint",
@@ -20,7 +22,8 @@ export function makePageSpec(currentPage: DashboardPageId, ctx: RequestContext):
 
   const subtitleMap: Record<DashboardPageId, string> = {
     overview: "Executive snapshot with reusable cards, meters, and feed widgets.",
-    tables: "Switch between non-chunked datasets to preview table behavior in-place.",
+    tables: "Switch datasets and use setServerPaging(...) when backend pagination is needed.",
+    analytics: "Client-side SVG analytics widgets with shared filter/query contracts.",
     items: "Scrollable generic item list with Open/Edit actions and admin-only Delete actions.",
     users: "User directory list with role-aware actions for administration demos.",
     shell: "Use this page as the base container template for SSR pages and app sections.",
@@ -33,6 +36,7 @@ export function makePageSpec(currentPage: DashboardPageId, ctx: RequestContext):
     userName: ctx.userName,
     rightRail: "on",
     role: ctx.role,
+    demoMode: ctx.demoMode,
     topTabs: navItems
       .filter((item) => item.key !== "shell")
       .map((item) => ({
@@ -68,6 +72,7 @@ export function makePageSpec(currentPage: DashboardPageId, ctx: RequestContext):
 function makePageActions(currentPage: DashboardPageId) {
   if (currentPage === "overview") return [{ label: "Generate snapshot" }];
   if (currentPage === "tables") return [{ label: "Export CSV" }];
+  if (currentPage === "analytics") return [{ label: "Refresh analytics", actionId: "refresh-analytics" }];
   if (currentPage === "users") return [{ label: "Invite user" }];
   if (currentPage === "shell") return [{ label: "Open table page", href: "/dashboard/tables" }];
   return [];
@@ -125,6 +130,23 @@ function makeRightRail(currentPage: DashboardPageId, ctx: RequestContext): Dashb
     ];
   }
 
+  if (currentPage === "analytics") {
+    return [
+      {
+        title: "Analytics hints",
+        alerts: [{ tone: "info" as const, text: "Filters and chart rendering run client-side with backend query adapters." }],
+      },
+      {
+        title: "Chart modes",
+        links: [
+          { label: "Time series + trendline", href: "#" },
+          { label: "Pie and donut breakdown", href: "#" },
+          { label: "Horizontal/vertical histogram", href: "#" },
+        ],
+      },
+    ];
+  }
+
   if (currentPage === "users") {
     return [
       {
@@ -152,6 +174,7 @@ function makeRightRail(currentPage: DashboardPageId, ctx: RequestContext): Dashb
       links: [
         { label: "Overview page", href: "/dashboard/overview" },
         { label: "Table page", href: "/dashboard/tables" },
+        { label: "Analytics page", href: "/dashboard/analytics" },
         { label: "Items page", href: "/dashboard/items" },
         { label: "Users page", href: "/dashboard/users" },
       ],

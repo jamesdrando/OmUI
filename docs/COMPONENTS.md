@@ -7,8 +7,11 @@ This guide is intentionally structured for both humans and AI agents.
 - `css/theme-light.css`: Light theme overrides.
 - `css/dashboard-shell.css`: Shell + `ui-*` components.
 - `css/vtg-styles.css`: VirtualGridTable styles.
-- `js/VirtualGridTable.js`: Grid class + auto-init helper.
-- `examples/index.html`: Example launcher.
+- `src/ui/layout/DashboardLayout.tsx`: Shell composition and slot wiring.
+- `src/ui/components/DataTablePanel.tsx`: Table host + runtime config payload.
+- `src/ui/components/AnalyticsPanel.tsx`: Analytics hosts + runtime config payload.
+- `legacy/virtual-grid-table/VirtualGridTable.legacy.js`: Archived legacy grid implementation.
+- `legacy/examples/index.html`: Archived example launcher.
 
 ## 2) Machine-Readable Index
 ```yaml
@@ -65,6 +68,7 @@ components:
     constructor: "new VirtualGridTable(containerId, options)"
     primary_api:
       - "setData(arrayOfObjects | { columns, rows })"
+      - "setServerPaging({ columns, pageSize, totalRows, fetchPage })"
       - "setLoading(boolean)"
       - "setSearch(string)"
       - "sortBy(index, dir)"
@@ -91,17 +95,40 @@ Core tokens to change first:
 ```
 
 ## 5) Linked Example Pages
-- `examples/index.html`
-- `examples/DashboardKPI.example.html`
-- `examples/DashboardTable.example.html`
-- `examples/DashboardReports.example.html`
-- `examples/DashboardShell.example.html`
-- `examples/VirtualGridTable.example.html`
+- `legacy/examples/index.html`
+- `legacy/examples/DashboardKPI.example.html`
+- `legacy/examples/DashboardTable.example.html`
+- `legacy/examples/DashboardReports.example.html`
+- `legacy/examples/DashboardShell.example.html`
+- `legacy/examples/VirtualGridTable.example.html`
 
-## 6) VirtualGridTable Data Feeding (Non-Chunked)
-Use `setData(...)` in either format.
+## 6) VirtualGridTable Data Feeding
+Production flow uses `setServerPaging(...)` with `/api/analytics/query`.
+Local/static flow can still use `setData(...)`.
 
-Array of objects:
+Server-paged example:
+```js
+grid.setServerPaging({
+  columns: [{ key: "ordered_at", label: "ordered_at" }, { key: "total_usd", label: "total_usd" }],
+  pageSize: 250,
+  totalRows: warmup.totalRows,
+  async fetchPage(request) {
+    const payload = await fetch("/api/analytics/query", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        dataset: "orders",
+        page: { offset: request.start, limit: request.size }
+      })
+    }).then((res) => res.json());
+
+    return { start: request.start, totalRows: payload.totalRows, rows: payload.rows };
+  }
+});
+```
+
+Local example (`setData`) for isolated component work:
+
 ```js
 grid.setData([
   { id: 1, name: "Acme", region: "US" },
@@ -124,12 +151,18 @@ grid.setData({
 });
 ```
 
-## 7) Items Role Rule
+## 7) Analytics/Unknown Fields Rule
+- Never hard-code dataset column names in SSR page components.
+- Read dataset descriptors from `/api/analytics/datasets`.
+- Let client runtime choose usable chart fields heuristically.
+- Prefer backend-provided field `type` metadata (`string`, `number`, `currency_usd`, `percent`, `date`, `datetime`, `time`).
+
+## 8) Items Role Rule
 - Keep delete buttons in markup for all rows.
 - Let CSS enforce visibility by role.
 - Set role via SSR: `<div class="dash" data-user-role="admin">` or `member`.
 
-## 8) Conventions
+## 9) Conventions
 - Namespace:
   - Layout: `dash__*`
   - Shared components: `ui-*`

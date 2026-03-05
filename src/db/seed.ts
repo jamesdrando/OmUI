@@ -36,11 +36,22 @@ interface InsertInventoryRow {
   inventory_health: string;
 }
 
+function runSqlBatch(db: Database, sql: string) {
+  for (const statement of sql
+    .split(";")
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0)) {
+    db.run(statement);
+  }
+}
+
 export function seedDemoDatabase(options: SeedOptions = {}) {
   const db = options.db ?? getDb();
 
   if (options.reset) {
-    db.exec(`
+    runSqlBatch(
+      db,
+      `
       DROP TABLE IF EXISTS kpi_metrics;
       DROP TABLE IF EXISTS pipeline_metrics;
       DROP TABLE IF EXISTS signal_feed;
@@ -50,10 +61,13 @@ export function seedDemoDatabase(options: SeedOptions = {}) {
       DROP TABLE IF EXISTS dataset_orders;
       DROP TABLE IF EXISTS dataset_accounts;
       DROP TABLE IF EXISTS dataset_inventory;
-    `);
+    `,
+    );
   }
 
-  db.exec(`
+  runSqlBatch(
+    db,
+    `
     CREATE TABLE IF NOT EXISTS kpi_metrics (
       id TEXT PRIMARY KEY,
       label TEXT NOT NULL,
@@ -143,9 +157,12 @@ export function seedDemoDatabase(options: SeedOptions = {}) {
       warehouse TEXT NOT NULL,
       inventory_health TEXT NOT NULL
     );
-  `);
+  `,
+  );
 
-  db.exec(`
+  runSqlBatch(
+    db,
+    `
     DELETE FROM kpi_metrics;
     DELETE FROM pipeline_metrics;
     DELETE FROM signal_feed;
@@ -156,7 +173,8 @@ export function seedDemoDatabase(options: SeedOptions = {}) {
     DELETE FROM dataset_orders;
     DELETE FROM dataset_accounts;
     DELETE FROM dataset_inventory;
-  `);
+  `,
+  );
 
   const insertKpi = db.prepare(`
     INSERT INTO kpi_metrics (id, label, value, trend, tone, sort_order)
@@ -336,7 +354,8 @@ export function seedDemoDatabase(options: SeedOptions = {}) {
     const health = ["healthy", "watch", "at-risk"];
 
     for (let i = 0; i < 420; i += 1) {
-      const orderedAt = new Date(Date.UTC(2026, 0, 1) + i * 4_200_000).toISOString().slice(0, 19).replace("T", " ");
+      // Spread orders across many months so time-series charts produce meaningful time ticks.
+      const orderedAt = new Date(Date.UTC(2025, 0, 1) + i * 86_400_000).toISOString().slice(0, 19).replace("T", " ");
       const customer = customers[i % customers.length] ?? customers[0]!;
       const status = orderStatuses[i % orderStatuses.length] ?? orderStatuses[0]!;
       const region = regions[i % regions.length] ?? regions[0]!;
@@ -442,7 +461,9 @@ export function ensureDemoDatabaseSeeded() {
   }
 
   if (!tableExists("auth_state")) {
-    db.exec(`
+    runSqlBatch(
+      db,
+      `
       CREATE TABLE IF NOT EXISTS auth_state (
         singleton_id INTEGER PRIMARY KEY CHECK (singleton_id = 1),
         signed_in INTEGER NOT NULL CHECK (signed_in IN (0, 1)),
@@ -452,12 +473,13 @@ export function ensureDemoDatabaseSeeded() {
         provider TEXT NOT NULL,
         tenant_id TEXT NOT NULL
       );
-    `);
+    `,
+    );
   }
 
   if (!columnExists("users", "app_role")) {
-    db.exec(`ALTER TABLE users ADD COLUMN app_role TEXT NOT NULL DEFAULT 'member';`);
-    db.exec(`UPDATE users SET app_role = 'admin' WHERE id IN ('u-1001', 'u-1003');`);
+    db.run(`ALTER TABLE users ADD COLUMN app_role TEXT NOT NULL DEFAULT 'member';`);
+    db.run(`UPDATE users SET app_role = 'admin' WHERE id IN ('u-1001', 'u-1003');`);
   }
 
   const kpiCount = db.query<{ total: number }, []>("SELECT COUNT(*) as total FROM kpi_metrics").get()?.total ?? 0;

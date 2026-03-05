@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { Hono } from "hono";
+import { AnalyticsPanel } from "../src/ui/components/AnalyticsPanel";
 import { ItemList } from "../src/ui/components/ItemList";
 import { KpiCard } from "../src/ui/components/KpiCard";
 import { MeterRow } from "../src/ui/components/MeterRow";
@@ -13,6 +14,7 @@ const basePage: DashboardPageSpec = {
   userName: "Maya Ortiz",
   rightRail: "on",
   role: "member",
+  demoMode: true,
   topTabs: [{ key: "overview", label: "Overview", href: "/dashboard/overview" }],
   sideNav: [{ title: "Navigation", items: [{ key: "overview", label: "Overview", href: "/dashboard/overview", current: true, active: true }] }],
   rightRailSections: [{ title: "Today", alerts: [{ tone: "success", text: "Good" }] }],
@@ -71,5 +73,16 @@ describe("component render", () => {
     const html = await (await app.request("/")).text();
     expect(html.includes("ui-itemList")).toBeTrue();
     expect(html.includes("ui-itemBtn--danger")).toBeTrue();
+  });
+
+  test("analytics panel renders widget hosts and config payload", async () => {
+    const app = new Hono();
+    app.get("/", (c) =>
+      c.html(<AnalyticsPanel datasetOptions={[{ key: "orders", label: "Orders" }]} defaultDataset="orders" />),
+    );
+    const html = await (await app.request("/")).text();
+    expect(html.includes("analyticsConfig")).toBeTrue();
+    expect(html.includes("analyticsTimeSeries")).toBeTrue();
+    expect(html.includes("analyticsHistogramHorizontal")).toBeTrue();
   });
 });

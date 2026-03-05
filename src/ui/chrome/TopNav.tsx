@@ -5,13 +5,12 @@ interface TopNavProps {
   currentPage: DashboardPageId;
   tabs: TabLink[];
   leftToggleId: string;
-  rightToggleId: string;
   userName: string;
   showLogout: boolean;
 }
 
 export function TopNav(props: TopNavProps) {
-  const { currentPage, tabs, leftToggleId, rightToggleId, userName, showLogout } = props;
+  const { currentPage, tabs, leftToggleId, userName, showLogout } = props;
 
   return (
     <header class="dash__topbar ui-topbar" data-slot="top-nav">
@@ -36,9 +35,6 @@ export function TopNav(props: TopNavProps) {
             </button>
           </form>
         ) : null}
-        <label class="dash__menuBtn dash__menuBtn--right ui-btn ui-btn--ghost" for={rightToggleId} role="button" tabindex={0}>
-          Rail
-        </label>
       </div>
     </header>
   );

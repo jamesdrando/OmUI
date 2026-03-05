@@ -7,6 +7,7 @@ export interface DashboardPageSpec {
   userName: string;
   rightRail: "on" | "off";
   role: "member" | "admin";
+  demoMode: boolean;
   topTabs: TabLink[];
   sideNav: SideNavSection[];
   rightRailSections?: RailSection[] | undefined;

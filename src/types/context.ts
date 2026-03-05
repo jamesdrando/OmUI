@@ -7,4 +7,5 @@ export interface RequestContext {
   role: "member" | "admin";
   signedIn: boolean;
   userName: string;
+  demoMode: boolean;
 }

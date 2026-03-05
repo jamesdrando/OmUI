@@ -12,10 +12,10 @@ export function TablesPage(props: TablesPageProps) {
 
   return (
     <DashboardLayout
-      page={{ ...model.page, scripts: ["/js/VirtualGridTable.js", "/public/js/virtual-grid-table.page.js"] }}
+      page={{ ...model.page, scripts: ["/public/js/table/VirtualGridTable.js", "/public/js/table/virtual-grid-table.page.js"] }}
       leftToggleId="tables-toggle-left"
       rightToggleId="tables-toggle-right"
-      footerText='Using setData(...) in regular mode (no chunking). Try setAppTheme("light") in console.'
+      footerText='Using setData(...) in local mode. Use setServerPaging(...) for backend pagination.'
     >
       <PageHeader title={model.page.title} subtitle={model.page.subtitle} actions={model.page.actions} />
 

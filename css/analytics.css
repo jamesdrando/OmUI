@@ -1,0 +1,214 @@
+.ui-analyticsPanel {
+  display: contents;
+}
+
+.ui-analyticsToolbar {
+  grid-column: span 12;
+}
+
+.ui-analyticsToolbar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--theme-space-3);
+}
+
+.ui-analyticsToolbar__body {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+  gap: var(--ui-gap);
+  align-items: end;
+}
+
+.ui-analyticsToolbar__meta {
+  color: var(--theme-text-muted);
+  font-size: 0.86rem;
+}
+
+.ui-analyticsWidget {
+  position: relative;
+  overflow: hidden;
+}
+
+.ui-analyticsWidget__head {
+  display: grid;
+  gap: 2px;
+}
+
+.ui-analyticsWidget__meta {
+  margin: 0;
+  color: var(--theme-text-muted);
+  font-size: 0.78rem;
+}
+
+.ui-analyticsCanvas {
+  min-height: 212px;
+  margin-top: var(--theme-space-3);
+  padding: 10px 12px 8px;
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: start;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--theme-border) 80%, transparent);
+  border-radius: var(--theme-radius-md);
+  background:
+    radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--theme-accent) 20%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--theme-surface-2) 84%, transparent), var(--theme-surface-1));
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.ui-analyticsCanvas:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--theme-shadow-md);
+  border-color: color-mix(in srgb, var(--theme-accent) 52%, var(--theme-border));
+}
+
+.ui-analyticsCanvas--enter .ui-analyticsSvg {
+  animation: analytics-in 360ms ease;
+}
+
+.ui-analyticsSvg {
+  display: block;
+  inline-size: 100%;
+  block-size: 164px;
+}
+
+.ui-pie-center-label {
+  fill: var(--theme-text-muted);
+  font-size: 12px;
+}
+
+.ui-pie-center-value {
+  fill: var(--theme-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ui-ts-grid line {
+  stroke: color-mix(in srgb, var(--theme-border) 75%, transparent);
+  stroke-width: 1;
+}
+
+.ui-ts-axis-label {
+  fill: var(--theme-text-muted);
+  font-size: 12px;
+}
+
+.ui-ts-axis-title {
+  fill: var(--theme-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ui-ts-latest {
+  fill: var(--theme-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ui-ts-dot {
+  fill: color-mix(in srgb, var(--theme-accent) 75%, white);
+}
+
+.ui-ts-line {
+  fill: none;
+  stroke: var(--theme-accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ui-ts-trend {
+  fill: none;
+  stroke: color-mix(in srgb, var(--theme-success) 85%, white);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.ui-pie-slice {
+  transition: transform 140ms ease, filter 140ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ui-pie-slice:hover {
+  transform: scale(1.03);
+  filter: brightness(1.08);
+}
+
+.ui-hist-bar {
+  fill: color-mix(in srgb, var(--theme-accent) 80%, #8cc4ff);
+  transition: opacity 120ms ease;
+}
+
+.ui-hist-bar:hover {
+  opacity: 0.84;
+}
+
+.ui-analyticsLegend {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  color: var(--theme-text-muted);
+}
+
+.ui-analyticsLegend li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.ui-analyticsLegend li span {
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 99px;
+}
+
+.ui-analyticsLegend li strong {
+  color: var(--theme-text);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-analyticsLegend li em {
+  font-style: normal;
+  color: var(--theme-text-muted);
+  text-align: right;
+}
+
+.ui-hist-label {
+  fill: var(--theme-text-muted);
+  font-size: 12px;
+}
+
+.ui-hist-value {
+  fill: var(--theme-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@keyframes analytics-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .ui-analyticsToolbar__body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

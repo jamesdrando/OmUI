@@ -3,13 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun run --watch src/server.ts",
-    "start": "bun run src/server.ts",
+    "build:client": "bun build src/client/table/VirtualGridTable.ts src/client/table/virtual-grid-table.page.ts src/client/analytics/analytics.page.ts --outdir public/js --target browser --format iife",
+    "build:client:watch": "bun build src/client/table/VirtualGridTable.ts src/client/table/virtual-grid-table.page.ts src/client/analytics/analytics.page.ts --outdir public/js --target browser --format iife --watch",
+    "dev": "bun run build:client && bun run --watch src/server.ts",
+    "start": "bun run build:client && bun run src/server.ts",
     "seed": "bun run scripts/seed.ts --reset",
     "test": "DEMO_DB_PATH=:memory: bun test",
     "typecheck": "bunx tsc --noEmit"
   },
   "dependencies": {
+    "decimal.js": "^10.6.0",
     "hono": "4.12.5"
   }
 }

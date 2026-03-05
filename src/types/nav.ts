@@ -1,4 +1,4 @@
-export type DashboardPageId = "overview" | "tables" | "items" | "users" | "shell";
+export type DashboardPageId = "overview" | "tables" | "analytics" | "items" | "users" | "shell";
 
 export interface TabLink {
   key: DashboardPageId;
@@ -30,4 +30,5 @@ export interface HeaderAction {
   label: string;
   href?: string;
   buttonType?: "button" | "submit";
+  actionId?: string;
 }

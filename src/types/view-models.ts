@@ -18,6 +18,12 @@ export interface TablesViewModel {
   defaultDataset: string;
 }
 
+export interface AnalyticsViewModel {
+  page: DashboardPageSpec;
+  datasetOptions: DatasetOption[];
+  defaultDataset: string;
+}
+
 export interface ItemsViewModel {
   page: DashboardPageSpec;
   itemCountLabel: string;
