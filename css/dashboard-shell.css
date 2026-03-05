@@ -592,6 +592,12 @@
   color: color-mix(in srgb, #d55656 82%, var(--theme-text));
 }
 
+.ui-kpi__trend[data-tone="neutral"] {
+  border-color: color-mix(in srgb, var(--theme-border) 82%, var(--theme-text-muted));
+  background: color-mix(in srgb, var(--theme-surface-2) 70%, transparent);
+  color: var(--theme-text-muted);
+}
+
 .ui-meterList {
   display: grid;
   gap: var(--theme-space-3);
@@ -678,13 +684,13 @@
   }
 }
 
-/* Reports page primitives */
-.ui-reportPanel {
+/* Items page primitives */
+.ui-itemPanel {
   padding: 0;
   overflow: hidden;
 }
 
-.ui-reportList {
+.ui-itemList {
   max-height: min(68vh, 760px);
   overflow: auto;
   display: grid;
@@ -692,7 +698,7 @@
   padding: var(--theme-space-3);
 }
 
-.ui-reportItem {
+.ui-itemRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--theme-space-3);
@@ -703,28 +709,28 @@
   padding: var(--theme-space-3);
 }
 
-.ui-reportInfo {
+.ui-itemInfo {
   min-width: 0;
 }
 
-.ui-reportTitle {
+.ui-itemTitle {
   margin: 0;
   font-size: 0.96rem;
 }
 
-.ui-reportMeta {
+.ui-itemMeta {
   margin: var(--theme-space-1) 0 0;
   color: var(--theme-text-muted);
   font-size: 0.82rem;
 }
 
-.ui-reportActions {
+.ui-itemActions {
   display: inline-flex;
   align-items: center;
   gap: var(--theme-space-2);
 }
 
-.ui-reportBtn {
+.ui-itemBtn {
   border: 1px solid var(--theme-border);
   border-radius: var(--theme-radius-sm);
   min-height: 32px;
@@ -736,12 +742,12 @@
   cursor: pointer;
 }
 
-.ui-reportBtn:hover {
+.ui-itemBtn:hover {
   border-color: color-mix(in srgb, var(--theme-accent) 46%, var(--theme-border));
   background: color-mix(in srgb, var(--theme-accent) 12%, transparent);
 }
 
-.ui-reportBtn--danger {
+.ui-itemBtn--danger {
   border-color: color-mix(in srgb, #d55656 56%, var(--theme-border));
   background: color-mix(in srgb, #d55656 13%, transparent);
   color: color-mix(in srgb, #d55656 85%, var(--theme-text));
@@ -756,17 +762,17 @@
   background: color-mix(in srgb, var(--theme-surface-2) 72%, transparent);
 }
 
-.dash:not([data-user-role="admin"]) .ui-reportBtn--danger {
+.dash:not([data-user-role="admin"]) .ui-itemBtn--danger {
   display: none;
 }
 
 @media (max-width: 900px) {
-  .ui-reportItem {
+  .ui-itemRow {
     grid-template-columns: 1fr;
     align-items: start;
   }
 
-  .ui-reportActions {
+  .ui-itemActions {
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;

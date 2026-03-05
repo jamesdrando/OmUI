@@ -51,15 +51,15 @@ components:
       - ".ui-tablePanel__body"
       - ".ui-tablePanel__select"
 
-  ui_report_list:
+  ui_item_list:
     selectors:
-      - ".ui-reportList"
-      - ".ui-reportItem"
-      - ".ui-reportActions"
-      - ".ui-reportBtn"
-      - ".ui-reportBtn--danger"
+      - ".ui-itemList"
+      - ".ui-itemRow"
+      - ".ui-itemActions"
+      - ".ui-itemBtn"
+      - ".ui-itemBtn--danger"
     role_rule:
-      hide_delete_when_not_admin: '.dash:not([data-user-role="admin"]) .ui-reportBtn--danger'
+      hide_delete_when_not_admin: '.dash:not([data-user-role="admin"]) .ui-itemBtn--danger'
 
   virtual_grid_table:
     constructor: "new VirtualGridTable(containerId, options)"
@@ -124,7 +124,7 @@ grid.setData({
 });
 ```
 
-## 7) Reports Role Rule
+## 7) Items Role Rule
 - Keep delete buttons in markup for all rows.
 - Let CSS enforce visibility by role.
 - Set role via SSR: `<div class="dash" data-user-role="admin">` or `member`.
